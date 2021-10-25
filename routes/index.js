@@ -3,6 +3,8 @@ var router = express.Router();
 const Book = require("../models").Book;
 const app = express();
 const createError = require("http-errors");
+const Sequelize = require("sequelize");
+const op = Sequelize.Op;
 
 // Handle async try and catch
 function asyncHandler(cb) {
@@ -25,7 +27,6 @@ router.get(
   "/books",
   asyncHandler(async (req, res) => {
     const books = await Book.findAll();
-    console.log(books);
     if (books) {
       res.render("books/index", { books, title: "Books" });
     } else {
@@ -114,12 +115,43 @@ router.post(
 
     if (book) {
       await book.destroy();
-      res.redirect("/books");
+      res.render("/books");
     } else {
       res.sendStatus(404);
     }
   })
 );
+
+router.get(
+  "/books/search",
+  asyncHandler(async (req, res, next) => {
+    const searchQuery = req.query.search;
+    const searchResults = await Book.findAll({
+      where: {
+        title: {
+          [op.like]: "%" + searchQuery + "%",
+        },
+      },
+    });
+    console.log(searchResults);
+    res.render("books/index", { searchResults, title: "Search Results" });
+  })
+);
+
+router.post(
+  "/books/search",
+  asyncHandler(async (req, res) => {
+    const searchQuery = req.body;
+    console.log(searchQuery);
+    const books = await Book.findAll();
+    if (books) {
+      res.render("/books/search", { books, title: "Book Search" });
+    } else {
+      res.redirect("/books");
+    }
+  })
+);
+
 //General Error Handling
 router.get("/error", (req, res, next) => {
   const err = new Error();

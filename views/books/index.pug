@@ -5,6 +5,11 @@ block content
   p
     a.button(href="/books/new") Create New Book
 
+  p 
+    form(action=`/books/search`, method="get")
+      input(type="search", name="search", placeholder="Search Books" )
+      input(type="submit" value="Search")
+
   table 
     thead 
       tr 
@@ -13,8 +18,12 @@ block content
         th Genre 
         th Year 
     tbody
-
-    each book in books
+    - let data;
+    if books
+      - data = books
+    else
+      - data = searchResults
+    each book in data
       book
         tr 
           td 
