@@ -128,29 +128,51 @@ router.get(
     const searchQuery = req.query.search;
     const searchResults = await Book.findAll({
       where: {
-        title: {
-          [op.like]: "%" + searchQuery + "%",
-        },
+        [op.or]: [
+          {
+            title: {
+              [op.like]: "%" + searchQuery + "%",
+            },
+          },
+          {
+            author: {
+              [op.like]: "%" + searchQuery + "%",
+            },
+          },
+          {
+            genre: {
+              [op.like]: "%" + searchQuery + "%",
+            },
+          },
+          {
+            year: searchQuery,
+          },
+        ],
       },
     });
-    console.log(searchResults);
-    res.render("books/index", { searchResults, title: "Search Results" });
+    let title;
+    if (searchResults.length < 1) {
+      title = "No Search Results, Try again.";
+    } else {
+      title = `Search Results (${searchResults.length})`;
+    }
+    res.render("books/index", { searchResults, title: title });
   })
 );
 
-router.post(
-  "/books/search",
-  asyncHandler(async (req, res) => {
-    const searchQuery = req.body;
-    console.log(searchQuery);
-    const books = await Book.findAll();
-    if (books) {
-      res.render("/books/search", { books, title: "Book Search" });
-    } else {
-      res.redirect("/books");
-    }
-  })
-);
+// router.post(
+//   "/books/search",
+//   asyncHandler(async (req, res) => {
+//     const searchQuery = req.body;
+//     console.log(searchQuery);
+//     const books = await Book.findAll();
+//     if (books) {
+//       res.render("/books/search", { books, title: "Book Search" });
+//     } else {
+//       res.redirect("/books");
+//     }
+//   })
+// );
 
 //General Error Handling
 router.get("/error", (req, res, next) => {
