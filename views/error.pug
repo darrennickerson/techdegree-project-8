@@ -1,0 +1,7 @@
+extends layout
+
+block content
+  p this is the error page
+  h1= message
+  h2= err.status
+  pre #{err.stack}
