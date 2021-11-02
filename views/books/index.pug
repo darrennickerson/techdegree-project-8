@@ -2,13 +2,14 @@ extends ../layout
 
 block content
   h1= title
-  p
-    a.button(href="/books/new") Create New Book
+  header
+    div.create-book
+      a.button(href="/books/new") Create New Book
 
-  p 
-    form(action=`/books/search`, method="get")
-      input(type="search", name="search", placeholder="Search Books" )
-      input(type="submit" value="Search")
+    div.search 
+      form(action=`/books/search`, method="get")
+        input(type="search", name="search", placeholder="Search Books" )
+        input(type="submit" value="Search")
 
   table 
     thead 
@@ -34,3 +35,10 @@ block content
             = book.genre 
           td
             = book.year 
+  - var n = 1;
+  - var isActive;
+  footer
+    while n <= pages
+      - isActive = activePage == n;
+      a.pages(href=`/books/page/${n}` class= isActive ? 'active' : '')= n
+      - n++

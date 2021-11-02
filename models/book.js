@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
     }
   }
-  //Insert msg's for book and author ***
+  // Create Books
   Book.init(
     {
       title: {

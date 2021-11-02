@@ -1,6 +1,6 @@
 body {
   padding: 10px 50px 50px;
-  font: 18px "Garamond", serif;
+  font: 18px 'Garamond', serif;
 }
 
 a {
@@ -15,10 +15,10 @@ a:hover {
 }
 
 a.button,
-input[type="submit"] {
+input[type='submit'] {
   color: white;
   background: #019875;
-  font-family: "Lucida Grande", Helvetica, Arial, sans-serif;
+  font-family: 'Lucida Grande', Helvetica, Arial, sans-serif;
   padding: 10px 14px 12px;
   font-size: 14px;
   border-radius: 2px;
@@ -26,17 +26,17 @@ input[type="submit"] {
 }
 
 form a.button,
-input[type="submit"] {
+input[type='submit'] {
   margin-left: 140px;
   transition: 0.4s;
 }
 
-input[type="submit"] {
+input[type='submit'] {
   border: 0;
 }
 
 a.button:hover,
-input[type="submit"]:hover {
+input[type='submit']:hover {
   background-color: #01b189;
 }
 
@@ -83,18 +83,50 @@ label {
 
 input {
   padding: 10px;
-  font-family: "Lucida Grande", Helvetica, Arial, sans-serif;
+  font-family: 'Lucida Grande', Helvetica, Arial, sans-serif;
   font-size: 14px;
   border-radius: 2px;
   border-color: #e7e7e7;
   transition: 0.4s;
 }
 
-input[type="text"] {
+input[type='text'] {
   margin-left: 7px;
   width: 300px;
 }
 
 .error {
   color: rgb(236, 15, 15);
+}
+
+header {
+  display: flex;
+  margin-bottom: 30px;
+}
+.create-book {
+  flex: 1;
+}
+.search {
+  margin-top: -10px;
+}
+.search input[type='submit'] {
+  margin-left: 20px;
+  padding-top: 13px;
+}
+footer {
+  margin-top: 30px;
+  margin-left: 100px;
+}
+.pages {
+  font-size: 18px;
+  padding: 4px;
+  border: 1px solid black;
+  margin-right: 5px;
+}
+.active {
+  color: #dedede;
+  background: black;
+}
+.active:hover {
+  color: #dedede;
 }
